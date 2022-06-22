@@ -1,0 +1,82 @@
+etcd:
+  host: https://172.19.0.2:2379
+caCrt: |
+  -----BEGIN CERTIFICATE-----
+  MIIDDTCCAfWgAwIBAgIBADANBgkqhkiG9w0BAQsFADAgMRAwDgYDVQQKEwdUZW5j
+  ZW50MQwwCgYDVQQDEwNUS0UwHhcNMjIwMjE3MDMxNDIxWhcNMzIwMjE1MDMxNDIx
+  WjAgMRAwDgYDVQQKEwdUZW5jZW50MQwwCgYDVQQDEwNUS0UwggEiMA0GCSqGSIb3
+  DQEBAQUAA4IBDwAwggEKAoIBAQCvr0I8wYQZiyGcxjHNu80c6ZVx6yQAUXr2MwB6
+  ibRmyZ4c2rr6UN3CCRwT/haWmpG6XzWg4qtqKJgJuzYO2PznklcRV/wfj5JTchy/
+  MWxbG1UExRRdv+0kWXULtceSHuNNpK1d5qaXMQZGpyzFNn8lTv9aywEO7Zzfxk/A
+  IsofSfxTV0Mtdrbklm30vgv/eIC4fy2VnH942RfrnPsekguBBRkQAZr2rpgiDWsb
+  lgScYGlMVCPA4o5alukA3kyy30bxiqq1/XqQuiaKPtTQEUCQ3Kb3l2auE6sgnS/C
+  qA3UrcDm46rp6T1dI77Ud736zzLvh9bu4ktRAGgkgMWG7i+/AgMBAAGjUjBQMA4G
+  A1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTtRdTS9Wwr
+  yiGhTi1/50WieIF8bjAOBgNVHREEBzAFggNUS0UwDQYJKoZIhvcNAQELBQADggEB
+  AIQWTmlEpSr6Q6j4YrxA+9Ovx+/uKXnQDqNHmzRt7QsxamsqLHNDfnEgd1RA3VCv
+  ZkD+pCzih63eLi6YB1Zm+1Z5Mua5SJZXqNJg13iMqdOtkuOJmpdPuf5Q1oSXOYSh
+  i/+08DLzH1TyhLXK3m5QIq6hk2vbFpA19vst9XpxhYS4RH0SKZfsCdztrDEedeRD
+  4ESQ5xI9s6pC+mxDpJ2gGm03IDwo+FyywjhHGJq6L1V9wpEfneiP4WXe47KX7Fpv
+  eZ/xXk09Jv0wxUL5CEO2+Dka3B3IHHaUQiArMqNBqxEqVwTh573XDKRsqf/6Rs9T
+  tSxiymcibA7vb0m2uDSt5kk=
+  -----END CERTIFICATE-----
+# 必填 公网可访问的集群IP
+publicIP: 43.156.24.48
+metricsServerImage: tkestack/metrics-server:v0.3.6
+addonResizerImage: tkestack/addon-resizer:1.8.11
+api:
+  replicas: 1
+  image: "tkestack/tke-platform-api-amd64:9345fd17ebc963a7c71af962a5427bde7b2dc6c3"
+  enableAuth: true
+  enableAudit: 
+  # OIDC认证方式客户端id，默认为default
+  oIDCClientID: default
+  # OIDC认证方式的issuer_url，默认为https://tke-auth-api/oidc
+  oIDCIssuerURL: https://tke-auth-api/oidc
+  # 是否开启OIDC认证，默认不开启
+  useOIDCCA:
+  clusterContext:
+  clusterCredentialsContext:
+controller:
+  replicas: 1
+  providerResImage: "tkestack/provider-res-amd64:v1.21.4-1"
+  image: "tkestack/tke-platform-controller-amd64:9345fd17ebc963a7c71af962a5427bde7b2dc6c3"
+  registryDomain: docker.io
+  registryNamespace: tkestack
+  # 监控存储类型
+  monitorStorageType: influxdb
+  # 监控存储地址，为tke集群master ip地址加8086端口
+  monitorStorageAddresses: http://172.19.0.2:8086
+certificate:
+  caCert: |
+    -----BEGIN CERTIFICATE-----
+    MIIDDjCCAfagAwIBAgIQc9gKq5V5rL/Pnyn8e0sQ6DANBgkqhkiG9w0BAQsFADAg
+    MRAwDgYDVQQKEwdUZW5jZW50MQwwCgYDVQQDEwNUS0UwIBcNMjIwNjIxMDkwNTQ4
+    WhgPMjEyMjA1MjgwOTA1NDhaMCAxEDAOBgNVBAoTB1RlbmNlbnQxDDAKBgNVBAMT
+    A1RLRTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOfVASoC/aJMekpG
+    sLONhxKuhTqGgqhdX4+YHGb1/f6XPoCo0cGK65hmMhkUggN5iW5/wtEywqhJMKCe
+    Mught+cb/jbcXp4C60T7Cmq/TJvrnV1EdRJbUSZj5ILfnK+0OY3dt9KsYUYddcEu
+    8awyQzKt2mg2x1YZYnknynrZ0myBRmc9algzY9R4ZIwNWo/j+4QpP0D2BF8Ypdws
+    w16SCdZi7x0HcXEze3yp2IxGgPF39csfQPMpRmrqNdJbIOfp2stnIC10LKeBuEFl
+    ySSnN1WLwCNHRpWI/DLdk4ejwMez0t6l0pjR266AQhTA0szOUQIdcMF1Ra8BH2v7
+    qG6OUe0CAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8w
+    HQYDVR0OBBYEFJh9mscgu6Xlu4TYfcy6G/KXuO/vMA0GCSqGSIb3DQEBCwUAA4IB
+    AQBKgXcKr29Yztf+Xt5V4VkvaxhaTY1tPn8UHhWQKfk8iGdcdER2Apr4xX17xJvW
+    XZbScAQUYGjT5Hc35FC0KNpYDcqkcZSf16cRJ2krdh/RaEsQ+M2+c3sUN7ZWhQM1
+    klTBjVVivZLXCAVFoSrGdnG/WRkG1OEEOiRAgp0KeB/laZ3Sgt14vMle2W5MlOWd
+    MWVDRuuzySlracLtexv+MxAhvQytS1i2yviGEU8WiYGdIwbWVfOZwLl6bjIvLh2t
+    WyXrl9YFJlkbAsqD+XDmwePRPMKucaaHbxtgviBVvs4kv6AwnObfegIg3uYyd4f0
+    Ap0IzG0qvRV61xwDhDV0QgMF
+    -----END CERTIFICATE-----
+  dnsNames:
+    - tke.gateway
+    - gateway.tke.svc
+    - tke-platform-api
+    - platform-api
+    - tke-platform-api.tke.svc
+  uris: 
+  ipAddresses: 
+    - 127.0.0.1
+    - 172.18.0.2
+    - 10.0.72.31
+    - 43.129.227.212

@@ -1,0 +1,69 @@
+api:
+  # tke-auth-api组件在node上的对外暴露端口，默认31138
+  nodePort: 31138
+  replicas: 1
+  image: tkestack/tke-auth-api-amd64:74592a3bceb5bebca602bea21aaebf78007a3bb2
+  enableAudit: 
+  # auth的重定向访问地址，包括集群服务器ip地址（必填）、tke-gateway的域名（可选）、集群高可用的VIP地址（可选）和集群的公共可访问域名（可选）
+  redirectHosts:
+    - 172.18.0.2
+  # tke集群的租户id，默认default
+  tenantID: default
+  # OIDC认证方式的secret，默认自动生成
+  oIDCClientSecret: 25EOZex3zmIj5glxvYfDBp79YIM
+  # authentication用户名，默认为admin
+  adminUsername: admin
+controller:
+  replicas: 1
+  image: tkestack/tke-auth-controller-amd64:74592a3bceb5bebca602bea21aaebf78007a3bb2
+  # tke集群的用户名，默认为admin
+  adminUsername: admin
+  # tke集群的密码，默认自动生成
+  adminPassword: abc123
+etcd:
+  host: https://172.19.0.2:2379
+certificate:
+  caCert: |
+    -----BEGIN CERTIFICATE-----
+    MIIDDjCCAfagAwIBAgIQc9gKq5V5rL/Pnyn8e0sQ6DANBgkqhkiG9w0BAQsFADAg
+    MRAwDgYDVQQKEwdUZW5jZW50MQwwCgYDVQQDEwNUS0UwIBcNMjIwNjIxMDkwNTQ4
+    WhgPMjEyMjA1MjgwOTA1NDhaMCAxEDAOBgNVBAoTB1RlbmNlbnQxDDAKBgNVBAMT
+    A1RLRTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOfVASoC/aJMekpG
+    sLONhxKuhTqGgqhdX4+YHGb1/f6XPoCo0cGK65hmMhkUggN5iW5/wtEywqhJMKCe
+    Mught+cb/jbcXp4C60T7Cmq/TJvrnV1EdRJbUSZj5ILfnK+0OY3dt9KsYUYddcEu
+    8awyQzKt2mg2x1YZYnknynrZ0myBRmc9algzY9R4ZIwNWo/j+4QpP0D2BF8Ypdws
+    w16SCdZi7x0HcXEze3yp2IxGgPF39csfQPMpRmrqNdJbIOfp2stnIC10LKeBuEFl
+    ySSnN1WLwCNHRpWI/DLdk4ejwMez0t6l0pjR266AQhTA0szOUQIdcMF1Ra8BH2v7
+    qG6OUe0CAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8w
+    HQYDVR0OBBYEFJh9mscgu6Xlu4TYfcy6G/KXuO/vMA0GCSqGSIb3DQEBCwUAA4IB
+    AQBKgXcKr29Yztf+Xt5V4VkvaxhaTY1tPn8UHhWQKfk8iGdcdER2Apr4xX17xJvW
+    XZbScAQUYGjT5Hc35FC0KNpYDcqkcZSf16cRJ2krdh/RaEsQ+M2+c3sUN7ZWhQM1
+    klTBjVVivZLXCAVFoSrGdnG/WRkG1OEEOiRAgp0KeB/laZ3Sgt14vMle2W5MlOWd
+    MWVDRuuzySlracLtexv+MxAhvQytS1i2yviGEU8WiYGdIwbWVfOZwLl6bjIvLh2t
+    WyXrl9YFJlkbAsqD+XDmwePRPMKucaaHbxtgviBVvs4kv6AwnObfegIg3uYyd4f0
+    Ap0IzG0qvRV61xwDhDV0QgMF
+    -----END CERTIFICATE-----
+  dnsNames:
+    - tke.gateway
+    - gateway.tke.svc
+    - tke-auth-api
+    - auth-api
+    - tke-auth-api.tke.svc
+  uris: 
+  ipAddresses: 
+    - 127.0.0.1
+    - 172.18.0.2
+    - 10.0.72.31
+    - 43.129.227.212
+caCrt: ""
+caKey: ""
+adminCrt: ""
+adminKey: ""
+serverCrt: ""
+serverKey: ""
+etcdCaCrt: ""
+etcdCrt: ""
+etcdKey: ""
+frontProxyCaCrt: ""
+passwordCsv: ""
+tokenCsv: "" 

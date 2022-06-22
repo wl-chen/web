@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tke-gateway-post-check
+  namespace: tke
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook-delete-policy": hook-succeeded, before-hook-creation
+  labels:
+    app: tke-gateway-post-check
+spec:
+  template:
+    metadata:
+      labels:
+        app: tke-gateway-post-check
+    spec:
+      containers:
+        - name: kubectl
+          image: tkestack/kubectl:v1.21.4-tke.2
+          imagePullPolicy: IfNotPresent
+          command: ['/bin/sh']
+          args:
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+              #!/bin/bash
+              components_lists=("tke-gateway")
+              for component in ${components_lists[@]}
+              do
+                while true
+                do
+                  componentStatus=$(kubectl get pod -A | grep $component | awk '{print $4}')
+                  if [ ${#componentStatus[*]} = 0 ]; then
+                    echo "$component dont exist"
+                    sleep 1
+                  else
+                    for tmpComponentStatus in ${componentStatus[@]}
+                    do
+                      if [ "$tmpComponentStatus"x != "Running"x ]; then
+                        echo "$component status is not Running"
+                        sleep 1
+                        continue 2
+                      fi
+                    done
+                    echo "$component status is Running"
+                    break
+                  fi
+                done
+              done
+              EOF
+      restartPolicy: OnFailure

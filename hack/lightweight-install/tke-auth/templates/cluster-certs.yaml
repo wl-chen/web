@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-certs
+  namespace: tke
+data:
+  etcd-ca.crt: |
+{{ .Values.certificate.etcdCaCrt | indent 4 }}
+  etcd.crt: |
+{{ .Values.certificate.etcdCrt | indent 4 }}
+  etcd.key: |
+{{ .Values.certificate.etcdKey | indent 4 }}
+  front-proxy-ca.crt: |
+{{ .Values.certificate.frontProxyCaCrt | indent 4 }}

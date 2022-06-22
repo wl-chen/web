@@ -1,0 +1,80 @@
+# 自签名根证书 issuer
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned
+  namespace: tke
+spec:
+  selfSigned: {}
+---
+
+# 根证书
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tke-ca
+  namespace: tke
+spec:
+  secretName: tke-ca
+  commonName: TKE
+  isCA: true
+  duration: 876000h # 100y
+  renewBefore: 87590h
+  subject:
+    organizations:
+    - Tencent
+  issuerRef:
+    name: selfsigned
+---
+
+# ca issuer
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ca-issuer
+  namespace: tke
+spec:
+  ca: 
+    secretName: tke-ca
+---
+
+# admin 证书
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tke-ca-admin
+  namespace: tke
+spec:
+  secretName: tke-ca-admin
+  duration: 87600h
+  renewBefore: 87590h
+  subject:
+    organizations:
+    - system:masters
+  commonName: admin
+  isCA: false
+  usages:
+    - client auth
+  issuerRef:
+    name: ca-issuer
+---
+
+# webhook 证书
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tke-ca-webhook
+  namespace: tke
+spec:
+  secretName: tke-ca-webhook
+  duration: 87600h
+  renewBefore: 87590h
+  subject:
+    organizations:
+    - Tencent
+  commonName: webhook
+  isCA: false
+  usages:
+    - client auth
+  issuerRef:
+    name: ca-issuer

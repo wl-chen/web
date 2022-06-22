@@ -1,0 +1,34 @@
+caCrt: |
+  -----BEGIN CERTIFICATE-----
+  MIIDDTCCAfWgAwIBAgIBADANBgkqhkiG9w0BAQsFADAgMRAwDgYDVQQKEwdUZW5j
+  ZW50MQwwCgYDVQQDEwNUS0UwHhcNMjIwNjIxMDc0NjQ1WhcNMzIwNjE4MDc0NjQ1
+  WjAgMRAwDgYDVQQKEwdUZW5jZW50MQwwCgYDVQQDEwNUS0UwggEiMA0GCSqGSIb3
+  DQEBAQUAA4IBDwAwggEKAoIBAQC4IP7wr2QyGJDLfB43+OVN1P3srkG+qjOuk+HG
+  bSjKsDZ9CSEjCiwwHU/ceOzSk1tw7NRciSrihUvSVx43VHJTQ8Mgkg0qhgGEckii
+  93h3XvqmZlPVAWj+Vefk8wOPz4PI5WONNOYrpbF8LlYDfd7+eplB2KgO+7dt83gx
+  9HRp5U7o5NS2JrPsQ9BAPYauuGOUubKS0770iOVmNqlEguS/au7TjYpse51Xos+m
+  bjpTgYVhubQ84NQA9bopiqKLN5vw2XbM/ADuC5WRKCsikKZN/0bO4KWIaeKPIFFc
+  47Xbub3wP9uiGt0e11Tw2Ns1MjrR7pAKISoOPopS3Ni6hzn9AgMBAAGjUjBQMA4G
+  A1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSssI3se693
+  q5Zz2ViNrrW7xsUhTTAOBgNVHREEBzAFggNUS0UwDQYJKoZIhvcNAQELBQADggEB
+  AB5sPSTZWnXdZ5zm+/lnud4FeaeksFfDv8xlGbaLiDD0YlqG79Rv+3yRxub6f98y
+  gbmmumNT2JsqscCV6wqpFjYOD2I3ihG7n8ks/EkkP/K2Lz5EQtjFPIOm0gBb56/F
+  aba3YPhEyPDjoKTJbvOVo7O0MO8WpGtPNiRQwHHMKstosRRLsTmC9qalrYxBooU0
+  cicQI1fyyln23nNI3jOgOgRSg7Z7YNMKArOXJRWgrbTabqs0J6jT/aF2Ji7nxif+
+  NcRQDdAHIb2PSwA7roD9gYfL2ZT63Yu4dtLZ8bRe+o2ATejHuvhnLqzgpg7i5win
+  /2fEn4oBjRS+gRd8FIQVwPM=
+  -----END CERTIFICATE-----
+etcd:
+  host: https://172.18.0.2:2379
+publicIP: 43.129.227.212
+metricsServerImage: tkestack/metrics-server:v0.3.6
+addonResizerImage: tkestack/addon-resizer:1.8.11
+api:
+  replicas: 1
+  image: tkestack/tke-platform-api-amd64:bc48bed59bff2022d87db5e1484481715357ee7c
+  enableAuth: "true"
+controller:
+  replicas: 1
+  image: tkestack/tke-platform-controller-amd64:bc48bed59bff2022d87db5e1484481715357ee7c
+  providerResImage: tkestack/provider-res-amd64:v1.21.4-1
+  monitorStorageAddresses: http://172.18.0.2:8086

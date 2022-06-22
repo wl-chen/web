@@ -1,0 +1,56 @@
+etcd:
+  host: https://172.19.0.2:2379
+image: tkestack/tke-gateway-amd64:bc48bed59bff2022d87db5e1484481715357ee7c
+registryDomainSuffix: docker.io
+# tke集群的租户id，默认default
+tenantID: default
+# OIDC认证方式的secret，默认自动生成
+oIDCClientSecret: 25DheusyQkiexUz2NPDqlHBoNqM
+# 是否开启自签名，默认为true
+selfSigned: true
+# 第三方cert证书，在selfSigned为false时需要填值
+serverCrt:
+# 第三方certKey，在selfSigned为false时需要填值
+serverKey:
+enableRegistry:
+enableAuth: true
+enableBusiness:
+enableMonitor:
+enableRegistry:
+enableLogagent:
+enableAudit:
+enableApplication:
+enableMesh:
+certificate:
+  caCert: |
+    -----BEGIN CERTIFICATE-----
+    MIIDDjCCAfagAwIBAgIQc9gKq5V5rL/Pnyn8e0sQ6DANBgkqhkiG9w0BAQsFADAg
+    MRAwDgYDVQQKEwdUZW5jZW50MQwwCgYDVQQDEwNUS0UwIBcNMjIwNjIxMDkwNTQ4
+    WhgPMjEyMjA1MjgwOTA1NDhaMCAxEDAOBgNVBAoTB1RlbmNlbnQxDDAKBgNVBAMT
+    A1RLRTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOfVASoC/aJMekpG
+    sLONhxKuhTqGgqhdX4+YHGb1/f6XPoCo0cGK65hmMhkUggN5iW5/wtEywqhJMKCe
+    Mught+cb/jbcXp4C60T7Cmq/TJvrnV1EdRJbUSZj5ILfnK+0OY3dt9KsYUYddcEu
+    8awyQzKt2mg2x1YZYnknynrZ0myBRmc9algzY9R4ZIwNWo/j+4QpP0D2BF8Ypdws
+    w16SCdZi7x0HcXEze3yp2IxGgPF39csfQPMpRmrqNdJbIOfp2stnIC10LKeBuEFl
+    ySSnN1WLwCNHRpWI/DLdk4ejwMez0t6l0pjR266AQhTA0szOUQIdcMF1Ra8BH2v7
+    qG6OUe0CAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8w
+    HQYDVR0OBBYEFJh9mscgu6Xlu4TYfcy6G/KXuO/vMA0GCSqGSIb3DQEBCwUAA4IB
+    AQBKgXcKr29Yztf+Xt5V4VkvaxhaTY1tPn8UHhWQKfk8iGdcdER2Apr4xX17xJvW
+    XZbScAQUYGjT5Hc35FC0KNpYDcqkcZSf16cRJ2krdh/RaEsQ+M2+c3sUN7ZWhQM1
+    klTBjVVivZLXCAVFoSrGdnG/WRkG1OEEOiRAgp0KeB/laZ3Sgt14vMle2W5MlOWd
+    MWVDRuuzySlracLtexv+MxAhvQytS1i2yviGEU8WiYGdIwbWVfOZwLl6bjIvLh2t
+    WyXrl9YFJlkbAsqD+XDmwePRPMKucaaHbxtgviBVvs4kv6AwnObfegIg3uYyd4f0
+    Ap0IzG0qvRV61xwDhDV0QgMF
+    -----END CERTIFICATE-----
+  dnsNames:
+    - tke.gateway
+    - gateway.tke.svc
+    - tke-gateway
+    - auth-gateway
+    - tke-gateway.tke.svc
+  uris: 
+  ipAddresses: 
+    - 127.0.0.1
+    - 172.18.0.2
+    - 10.0.72.31
+    - 43.129.227.212
